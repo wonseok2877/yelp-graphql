@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const path = require("path");
 const { graphqlHTTP } = require("express-graphql");
 const scheeeema = require("./graphql/schema");
@@ -18,6 +19,8 @@ mongoose.connection
   .once("open", () => console.log("✅ mongoDB connected~"))
   .on("error", (e) => console.log(`❌Error on DB connection : ${e}`));
 
+app.use(cors());
+
 app.use(
   "/graphql",
   graphqlHTTP({
@@ -30,13 +33,13 @@ app.use(
 app.get("/*", (req, res) => {
   res
     .status(404)
-    .send(
-      `<h1><a href="http://localhost:${PORT}/graphql">go to graphql🤔</h1>`
-    );
-  // .sendFile("wrong.html", { root: path.join(__dirname, "./") });
+    // .send(
+    //   `<h1><a href="http://localhost:${PORT}/graphql">go to graphql🤔</h1>`
+    // );
+    .sendFile("wrong.html", { root: path.join(__dirname, "./") });
 });
 
 const PORT = 4001;
 app.listen(PORT, () => {
-  console.log(`server listening to http://localhost:${PORT}`);
+  console.log(`server listening to http://localhost:${PORT}/graphql`);
 });

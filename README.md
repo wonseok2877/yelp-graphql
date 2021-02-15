@@ -25,8 +25,29 @@
 4. ? : DB간의 관계를 만드는데 미숙하다. ref도 그렇고 그냥 schemaType을 잘 모른다.
 
 # 문제점
+## React 이해도 부족
+- <mark> Hooks</mark>부터 배워야 함. React를 모르니까 Apollo client도 헷갈릴 수 밖에 . 
+- 페이지끼리 data혹은 state를 어떻게 주고 받을 것인가
+- <mark>렌더링
+- useEffect
+- useContext
+-  기본적으로 DOM을 다루는 법. onChange, onClick, onSubmit등과 그 안에서 함수, 인자값 만드는 법.
+-  props 개념
+-  react-router-dom의 Link
+## Mongoose 이해도 부족
+- graphQL resolver는 별 거  없다. MVC의 controller 역할. 결국 DB에 어떻게 잘 접근하고 data를 잘 응용하느냐 문젠데, 전반적으로 아는게 없음.
+- <mark>기본 DB 함수들</mark>
+## Apollo Client 이해가 없음
+- <mark> useQuery가 Hook이라는 것과 useState와 충돌한다는 것.</mark>
+- <mark> Cache 쓰는 방법 모름</mark>
+- <mark> Apollo Context 모름</mark>
+- update()
+- refetch()
+- readQuery와 writeQuery
+- cache 개념
+- gql 태그 : 다른건 알겠는데 $문법 헷갈림.
+
 ## validation : collection끼리의 관계 
 만약 기존 DB에 없던 레스토랑 id로 리뷰를 만들려는 접근이 있을 때, 제약이 걸려야 한다. 
-1. DB끼리 관계를 만들기. foreign key 혹은 ref. 확실하게 일대일 매칭을 시킬 수 있을 것이다. 예외가 있나?
-2. Mutation에서 해당 collection에서 findById()를 한 후에 에러 메세지 던지기.
-## 
+- DB끼리 관계를 만들기. foreign key 혹은 ref. 확실하게 일대일 매칭을 시킬 수 있을 것이다. 예외가 있나?
+-  Mutation에서 해당 collection에서 findById()를 한 후에 에러 메세지 던지기.

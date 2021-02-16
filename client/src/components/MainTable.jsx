@@ -1,14 +1,15 @@
 import React, { useContext, useEffect } from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import { useQuery } from '@apollo/client'
 import { GET_RESTAURANTS_QUERY } from '../gql/query'
 import { RestaurantsContext } from '../context/Context'
 import DeleteButton from './DeleteButton'
 
 const MainTable = () => {
+    const history = useHistory()
     // Context API
     const {restaurants, setR} = useContext(RestaurantsContext)
-    const {loading, error, data, refetch}= useQuery(GET_RESTAURANTS_QUERY)
+    const {loading, data}= useQuery(GET_RESTAURANTS_QUERY)
     
     if(loading){
         console.log("loading restaurants..."); 
@@ -32,6 +33,7 @@ is not an async function, it will immediately return result (loading:true, data:
             const fetchData = ()=>{
                 try {
                     setR(data.getAllRestaurants)
+                    console.log(data.getAllRestaurants);
                 } catch (e) {
                     console.log(e);
                 }
@@ -41,6 +43,16 @@ is not an async function, it will immediately return result (loading:true, data:
         // 일단 매번 data를 가져오도록 땜빵해놓음
         },[data])
         console.log(data);
+
+        const handleUpdateClick = (e, id) =>{
+            e.stopPropagation()
+            history.push(`/update/${id}`)
+        }
+
+        const handleRestaurantSelect = (e, id)=>{
+            e.stopPropagation()
+            history.push(`/detail/${id}`)
+        }
         
     return (
         <div>
@@ -61,7 +73,7 @@ is not an async function, it will immediately return result (loading:true, data:
                 ) : (
                 restaurants && restaurants.map(r=>(
                 <tbody key ={r.id} className="text-center bg-green-500">
-                    <tr >
+                    <tr onClick={(e)=>handleRestaurantSelect(e,r.id)}>
                     <td>{r.name}</td>
                     <td>{r.location}</td>
                     <td>{"$".repeat(r.priceRange)}</td>
@@ -71,9 +83,7 @@ is not an async function, it will immediately return result (loading:true, data:
                          Warning: React does not recognize the `restaurantData` prop on a DOM element.
                         If you intentionally want it to appear in the DOM as a custom attribute, 
                         spell it as lowercase `restaurantdata` instead.*/}
-                    <Link  as={Link} to={`/update/${r.id}`} >
-                        <button>Update</button>
-                    </Link>
+                        <button onClick={(e)=>handleUpdateClick(e, r.id)}>Update</button>
                     </td>
                     <td>
                         <DeleteButton restaurantId={r.id}/>

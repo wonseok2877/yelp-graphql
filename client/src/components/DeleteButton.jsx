@@ -5,7 +5,6 @@ import { DELETE_RESTAURANT_MUTATION } from '../gql/mutation'
 
 const DeleteButton = ({restaurantId}) => {
     const {restaurants,setR} = useContext(RestaurantsContext)
-    console.log(restaurantId);
     const [deleteRestaurant] = useMutation(DELETE_RESTAURANT_MUTATION,{
         variables : {
             id : restaurantId

@@ -34,6 +34,7 @@ const UpdatePage = (props) => {
             location,
             priceRange,
         }
+        
     })
 
 if(loading) console.log("loading.");
@@ -80,6 +81,11 @@ if(loading) console.log("loading.");
                 <div><input  value={priceRange} onChange={e=>setPriceRange(e.target.value)} className="border-4 border-indigo-700 text-6xl" type="number" min="1" max="5"/></div>
                 <button type="submit"></button>
                 </form>
+            {loading ? (
+                <h1>loading ..</h1>
+            ) : (
+                <h1>{data.getRestaurant.name}</h1>
+            )}
         </div>
     )
 }

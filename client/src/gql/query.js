@@ -22,6 +22,8 @@ export const GET_A_RESTAURANT_QUERY = gql`
       reviews {
         id
         username
+        content
+        rating
       }
     }
   }
